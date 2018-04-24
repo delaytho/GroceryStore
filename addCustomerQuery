@@ -1,0 +1,73 @@
+package dbHelpers;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import model.Customer;
+
+
+public class addCustomerQuery {
+	public Connection connection;
+	public addCustomerQuery(String dbName,String uname, String pwd)
+	{
+		String url ="jdbc:mysql://localhost:3306/"+dbName;
+		try {
+			Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
+			this.connection=DriverManager.getConnection(url,uname,pwd);
+			
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void doAdd(Customer customer)
+	{
+		String query= "insert into Customer(custId,fname,lname,phoneNum,emailAdress,username,password) values(?,?,?,?,?,?,?)";
+		
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			
+			ps.setInt(1, customer.getcustId());
+			ps.setString(2, customer.getfName());
+			ps.setString(3, customer.getlName());
+			ps.setInt(4, customer.getPhoneNum());
+			ps.setString(5, customer.getEmailAddress());
+			ps.setString(6, customer.getUsername());
+			ps.setString(7, customer.getPassword());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+}
