@@ -84,4 +84,9 @@ public class Product {
 	public String toString() {
 		return "Product [sku=" + sku + ", name=" + name + ", quantity=" + quantity + ", price=" + price + "]";
 	}
+	
+	public double calcTotal(double price, int quantity) {
+		double total = price * quantity;
+		return total;
+	}
 }
