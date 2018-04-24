@@ -33,4 +33,9 @@ public class Cart {
 	public String toString() {
 		return "Cart [numProducts=" + numProducts + "]";
 	}
+	
+	public double calcTotal(double price, int quantity) {
+		double total = price * quantity;
+		return total;
+	}
 }
