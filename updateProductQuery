@@ -1,0 +1,75 @@
+package dbHelpers;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import java.sql.SQLException;
+
+import model.Product;
+
+
+public class updateProductQuery 
+{
+	private Connection connection;
+	
+	
+	
+	public updateProductQuery(String dbname, String uname, String pwd)
+	{
+		String url = "jdbc:mysql://localhost:3306/" + dbname;
+		
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
+			this.connection= DriverManager.getConnection(url, uname, pwd);
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}	
+	public void doProductUpdate(Product product)
+	{
+		String query = "UPDATE Product set sku=?, name=?,quantity=?, price=? where name=?";
+		
+		try {
+			PreparedStatement ps= connection.prepareStatement(query);
+		
+		ps.setString(1, product.getSku());
+		ps.setString(2, product.getName());
+		ps.setInt(3, product.getQuantity());
+		ps.setDouble(4, product.getPrice());
+		
+		ps.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+}
