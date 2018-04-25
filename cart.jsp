@@ -6,7 +6,7 @@
 
 <%
 	//input
-	int sku = Integer.parseInt(request.getParameter("sku"));
+	String sku = request.getParameter("sku");
 	String name = request.getParameter("name");
 	int quantity = Integer.parseInt(request.getParameter("quantity"));
 	double price = Double.parseDouble(request.getParameter("price"));
@@ -22,6 +22,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>Grocery Store - Shopping Cart</title>
 </head>
 <body>
